@@ -4,7 +4,7 @@ My first try at Vue.js with the OpenWeather API
 
 ## Project setup
 
-1. Open terminal in the root of the project folder and type `npm install` or `yarn install`
+1. Open terminal in the root of the project folder and type `npm install` or `yarn install` (IF you've got yarn installed of course)
 
 2. Create an OpenWeather API key on [openweathermap.org](https://openweathermap.org)
 3. Copy your API key and paste it into `src/env.example.js` according to its instructions
