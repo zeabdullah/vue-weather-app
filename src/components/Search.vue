@@ -14,19 +14,25 @@
         />
       </div>
 
-      <input type="submit" class="btn" value="Get Weather" />
+      <button
+        type="submit"
+        class="btn"
+        :disabled="city === '' || country === ''"
+      >
+        Get Weather
+      </button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Search',
+  name: "Search",
 
   data() {
     return {
-      city: '',
-      country: ''
+      city: "",
+      country: "",
     };
   },
 
@@ -34,10 +40,10 @@ export default {
     getWeather(e) {
       e.preventDefault();
 
-      this.$emit('get-weather', this);
-      this.city = this.country = '';
-    }
-  }
+      this.$emit("get-weather", this);
+      this.city = this.country = "";
+    },
+  },
 };
 </script>
 
@@ -48,7 +54,7 @@ export default {
 .form-control {
   margin: 10px 0;
 }
-input[type='text'] {
+input[type="text"] {
   font-size: 1.2em;
   opacity: 0.5;
   width: 100%;
@@ -68,5 +74,4 @@ input[type='text'] {
     border-radius: 2px 12px 2px 12px;
   }
 }
-
-</stylescopedscopedscopedscopedscoped>
+</style>

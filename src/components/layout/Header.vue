@@ -1,7 +1,7 @@
 <template>
-  <div id="header">
+  <header id="header">
     <h1>Weather App</h1>
-  </div>
+  </header>
 </template>
 
 <script>

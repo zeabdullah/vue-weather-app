@@ -22,28 +22,28 @@
 </template>
 
 <script>
-import API_KEY from './env';
-import Header from './components/layout/Header';
-import Alert from './components/Alert';
-import Search from './components/Search';
-import WeatherCard from './components/WeatherCard';
-import Loader from './components/Loader';
+import API_KEY from "./env";
+import Header from "./components/layout/Header";
+import Alert from "./components/Alert";
+import Search from "./components/Search";
+import WeatherCard from "./components/WeatherCard";
+import Loader from "./components/Loader";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Header,
     Alert,
     Search,
     WeatherCard,
-    Loader
+    Loader,
   },
 
   methods: {
     getWeather({ city, country }) {
       // Show loader right before making request
-      this.loaderVisible = 'visible';
+      this.loaderVisible = "visible";
 
       setTimeout(() => {
         fetch(
@@ -52,73 +52,75 @@ export default {
           .then((res) => res.json())
           .then((data) => {
             // Hide loader after fetch is done
-            this.loaderVisible = '';
+            this.loaderVisible = "";
 
             const _icon = data.list[0].weather[0].icon;
 
             this.imgSrc = `http://openweathermap.org/img/wn/${_icon}@2x.png`;
             this.imgAlt = data.list[0].weather[0].description;
 
-            this.temp = Math.round(data.list[0].main.temp).toString() + ' °C';
-            this.tempMin = Math.round(data.list[0].main.temp_min).toString() + '°';
-            this.tempMax = Math.round(data.list[0].main.temp_max).toString() + '°';
-            this.city = data.list[0].name + ',';
+            this.temp = Math.round(data.list[0].main.temp).toString() + " °C";
+            this.tempMin =
+              Math.round(data.list[0].main.temp_min).toString() + "°";
+            this.tempMax =
+              Math.round(data.list[0].main.temp_max).toString() + "°";
+            this.city = data.list[0].name + ",";
             this.country = data.list[0].sys.country;
 
             this.desc = data.list[0].weather[0].description;
             this.humid = `Humidity: ${data.list[0].main.humidity.toString()}%`;
             this.precip =
-              'Precipitation: ' +
-              (data.list[0].rain ? data.list[0].rain['1h'] * 100 : '0') +
-              '%';
+              "Precipitation: " +
+              (data.list[0].rain ? data.list[0].rain["1h"] * 100 : "0") +
+              "%";
           })
           .catch((err) => {
             console.log(err);
 
             // Show alert
-            this.alertColor = 'danger';
-            this.alertMessage = 'Data not found. Please check your input...';
+            this.alertColor = "danger";
+            this.alertMessage = "Data not found. Please check your input...";
             // Hide alert after 3 sec
             setTimeout(() => {
-              this.alertColor = '';
-              this.alertMessage = '';
+              this.alertColor = "";
+              this.alertMessage = "";
             }, 3000);
           });
       }, 800);
-    }
+    },
   },
 
   data() {
     return {
-      imgSrc: '',
-      imgAlt: '',
+      imgSrc: "",
+      imgAlt: "",
 
-      temp: '',
-      tempMin: '',
-      tempMax: '',
-      city: '',
-      country: '',
+      temp: "",
+      tempMin: "",
+      tempMax: "",
+      city: "",
+      country: "",
 
-      desc: '',
-      humid: '',
-      precip: '',
+      desc: "",
+      humid: "",
+      precip: "",
 
-      loaderVisible: '',
-      alertColor: '',
-      alertMessage: '',
-      api_key: API_KEY
+      loaderVisible: "",
+      alertColor: "",
+      alertMessage: "",
+      api_key: API_KEY,
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 $colors: (
   primary: #523fa8,
   primary-alt: #ee65fa,
-  secondary: #f38f1d
+  secondary: #f38f1d,
 );
 
 *,
@@ -127,7 +129,7 @@ $colors: (
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
 #app {
@@ -148,7 +150,9 @@ $colors: (
 }
 
 .container {
-  margin: 0 1em;
+  padding: 0 1rem;
+  margin: auto;
+  max-width: 35rem;
 }
 
 .btn {
@@ -165,15 +169,22 @@ $colors: (
   font-size: 1.1em;
 
   transition: 0.3s ease;
-}
-.btn:hover {
-  box-shadow: 0px 16px 20px -11px rgba(0, 0, 0, 0.255);
-  transform: translateY(-10%);
-}
-.btn:active {
-  box-shadow: none;
-  background-color: map-get($colors, secondary);
-  color: white;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0px 16px 20px -11px rgba(0, 0, 0, 0.255);
+    transform: translateY(-5%);
+  }
+  &:active:not(:disabled) {
+    box-shadow: none;
+    background-color: map-get($colors, secondary);
+    transform: translateY(0%) !important;
+    color: white;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
 }
 
 /********* ANIMATIONS *********/
